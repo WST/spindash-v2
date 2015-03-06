@@ -11,16 +11,21 @@
 
 namespace SpinDash;
 
-final class WebApp
+class WebApp extends API
 {
 	public function __construct($configuration_file) {
+		if(!file_exists($configuration_file)) {
+			throw new Exceptions\IOException('File does not exist', $configuration_file);
+		}
 
-	}
+		if(!file_exists($configuration_file) || !is_readable($configuration_file)) {
+			throw new Exceptions\IOException('Access denied', $configuration_file);
+		}
 
-	/**
-	* returns PHPSGI callable when using PHPSGI frontend
-	*/
-	public function run() {
-		return function($request) {};
+		require $configuration_file;
+
+		if(!isset($config)) {
+			throw new Exceptions\CoreException('The given configuration file does not define $config array');
+		}
 	}
 }
