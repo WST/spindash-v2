@@ -9,11 +9,9 @@
 * Evgeny Bulgakov <evgeny@webline-masters.ru>
 */
 
-namespace SpinDash\Exceptions;
+namespace SpinDash\Http;
 
-class IOException extends CoreException
+final class Request
 {
-	public function __construct($message, $file) {
-		parent::__construct("IOException: $message\nFile: $file");
-	}
+	
 }

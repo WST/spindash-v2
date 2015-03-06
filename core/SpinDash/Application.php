@@ -11,7 +11,7 @@
 
 namespace SpinDash;
 
-class WebApp extends API
+abstract class Application extends Router implements Interfaces\IApplication
 {
 	public function __construct($configuration_file) {
 		if(!file_exists($configuration_file)) {

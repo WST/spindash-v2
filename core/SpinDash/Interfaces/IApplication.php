@@ -9,11 +9,9 @@
 * Evgeny Bulgakov <evgeny@webline-masters.ru>
 */
 
-namespace SpinDash\Exceptions;
+namespace SpinDash\Interfaces;
 
-class IOException extends CoreException
+interface IApplication
 {
-	public function __construct($message, $file) {
-		parent::__construct("IOException: $message\nFile: $file");
-	}
+	public function routeMap($request);
 }
