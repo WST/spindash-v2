@@ -20,11 +20,12 @@ class SpinDash_Autoloader
 	}
 
 	public static function autoload($class) {
+		echo "Autoloader called!\n";
 		if (0 !== strpos($class, 'SpinDash')) {
 			return;
 		}
 
-		$file = __DIR__ . '/' . strtolower($class) . '.php';
+		$file = __DIR__ . '/' . strtolower($class) . '.inc.php';
 		if(is_file($file)) require $file;
 	}
 }
