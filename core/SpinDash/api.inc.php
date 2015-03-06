@@ -9,9 +9,7 @@
 * Evgeny Bulgakov <evgeny@webline-masters.ru>
 */
 
-namespace SpinDash;
-
-class API
+class SpinDash_API
 {
 	const FRONTEND_BASIC = 0;
 	const FRONTEND_FASTCGI = 1;
