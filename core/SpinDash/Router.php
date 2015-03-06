@@ -67,7 +67,7 @@ abstract class Router
 			return $response;
 		}
 		
-		foreach($this->common_request_handlers as $callback) {
+		foreach($this->middleware as $callback) {
 			if(!is_callable($callback)) continue;
 			
 			ob_start();
