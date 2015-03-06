@@ -9,7 +9,9 @@
 * Evgeny Bulgakov <evgeny@webline-masters.ru>
 */
 
-final class SpinDash_WebApp
+namespace SpinDash;
+
+final class WebApp
 {
 	public function __construct($configuration_file) {
 
