@@ -4,5 +4,5 @@
 	"autoload": {"psr-0": {"SpinDash": "core/"}},
 	"description": "A very basic web framework",
 	"license": "MIT",
-	"minimum-stability": "dev",
+	"minimum-stability": "dev"
 }
