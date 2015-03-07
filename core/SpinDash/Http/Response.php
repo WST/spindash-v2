@@ -24,6 +24,10 @@ final class Response
 		echo $this->body;
 	}
 
+	public function sendPHPSGI() {
+		return ["{$this->status_code} message", ['Content-Type' => 'text/html'], $this->body];
+	}
+
 	public function setStatusCode($code) {
 		$this->code = $code;
 	}

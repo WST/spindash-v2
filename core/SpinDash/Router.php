@@ -56,7 +56,7 @@ abstract class Router
 			throw new Exceptions\CoreException("Unsupported request method {$type}");
 		}
 		
-		$request_path = $request->requestPath();
+		$request_path = $request->requestUri();
 		if(($pos = strpos($request_path, '?')) !== false) $request_path = substr($request_path, 0, $pos);
 		foreach($this->routes[$type] as $k => $v) {
 			$pattern = preg_replace(['#(:[a-z_]+?)#iU', '#(%[a-z_]+?)#iU'], ['([^/]+)', '([\\d]+)'], $k);
@@ -165,6 +165,17 @@ abstract class Router
 		}
 	}
 
+	public function handlePHPSGIRequest($env) {
+		$request = new Http\Request($this, $env);
+		$response = $this->handleRequest($request);
+
+		if(!is_object($response) || !($response instanceof Http\Response)) {
+			throw new Exceptions\CoreException("request handler has corrupted it’s Response instance");
+		}
+
+		return $response->sendPHPSGI();
+	}
+
 	public function simplePage($title, $body, $description = '') {
 		$page = new IO\TextFile(SPINDASH_ROOT . 'misc' . DIRECTORY_SEPARATOR . 'simple-page.htt');
 		$page->replace(['{TITLE}', '{BODY}', '{DESCRIPTION}', '{VERSION}'], [ucfirst($title), ucfirst($body), ucfirst($description), SPINDASH_VERSION]);
@@ -186,7 +197,7 @@ abstract class Router
 				return $this->serveFastCGI();
 			break;
 			case self::FRONTEND_PHPSGI:
-				return function($env) {};
+				return function($env) { $this->handlePHPSGIRequest($env); };
 			break;
 		}
 

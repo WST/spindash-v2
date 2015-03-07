@@ -16,9 +16,10 @@ final class Request
 	private $method;
 	private $data = [];
 	private $files = [];
+	private $request_uri = '';
 
-	public function __construct(\Spindash\Application $application) {
-		switch($application->frontend()) {
+	public function __construct(\Spindash\Router $router, $env = NULL) {
+		switch($router->frontend()) {
 			case \Spindash\Router::FRONTEND_BASIC:
 				$this->data['get'] = & $_GET;
 				$this->data['post'] = & $_POST;
@@ -27,10 +28,24 @@ final class Request
 
 				$this->method = $_SERVER['REQUEST_METHOD'];
 			break;
+
+			case \Spindash\Router::FRONTEND_PHPSGI:
+				$query_string = $env['QUERY_STRING'];
+				$this->method = $env['REQUEST_METHOD'];
+				$this->request_uri = $env['REQUEST_URI'];
+
+				$parts = [];
+				parse_str($query_string, $parts);
+			break;
+
 			default:
 				throw new \Spindash\Exceptions\CoreException('Not implemented');
 			break;
 		}
+	}
+
+	public function requestUri() {
+		return $this->request_uri;
 	}
 
 	public function method() {

@@ -32,6 +32,17 @@ abstract class Application extends Router implements Interfaces\IApplication
 		if(!isset($config)) {
 			throw new Exceptions\CoreException('The given configuration file does not define $config array');
 		}
+
+		switch(PHP_SAPI) {
+			case 'uwsgi-phpsgi':
+				$frontend = Router::FRONTEND_PHPSGI;
+			break;
+			default:
+				$frontend = Router::FRONTEND_BASIC;
+			break;
+		}
+
+		parent::__construct($frontend);
 	}
 
 	public function handleException(\Exception $e) {
