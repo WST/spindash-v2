@@ -13,5 +13,18 @@ namespace SpinDash\Http;
 
 final class Response
 {
-	
+	private $status_code = 200;
+	private $body = '';
+
+	public function setBody($data) {
+		$this->body = $data;
+	}
+
+	public function sendBasic() {
+		echo $this->body;
+	}
+
+	public function setStatusCode($code) {
+		$this->code = $code;
+	}
 }

@@ -18,14 +18,24 @@ abstract class Router
 	const FRONTEND_CGI = 2;
 	const FRONTEND_FASTCGI = 3;
 
+	// Frontend used
 	private $frontend;
+
+	// Request callbacks
 	private $routes = [];
 	private $middleware = [];
+
+	// Cache engine
+	private $cache = NULL;
 
 	public function __construct($frontend) {
 		$this->frontend = $frontend;
 		$this->routes['get'] = [];
 		$this->routes['post'] = [];
+	}
+
+	public function frontend() {
+		return $this->frontend;
 	}
 
 	public function get($route, $callable) {
@@ -41,7 +51,7 @@ abstract class Router
 		$this->routes['post'][$route] = $callable;
 	}
 
-	private function selectHandler(Http\Request & $request) {
+	private function selectHandler(Http\Request $request) {
 		if(!array_key_exists($type = $request->method(), $this->routes)) {
 			throw new Exceptions\CoreException("Unsupported request method {$type}");
 		}
@@ -59,7 +69,7 @@ abstract class Router
 		throw new Exceptions\CoreException("no route matching {$request_path}");
 	}
 
-	private function handleRequest(Http\Request & $request) {
+	private function handleRequest(Http\Request $request) {
 		$response = new Http\Response($this);
 		
 		// Trying to fetch cached response
@@ -153,6 +163,18 @@ abstract class Router
 			$this->handleFastCGIClient($client);
 			socket_close($client);
 		}
+	}
+
+	public function simplePage($title, $body, $description = '') {
+		$page = new IO\TextFile(SPINDASH_ROOT . 'misc' . DIRECTORY_SEPARATOR . 'simple-page.htt');
+		$page->replace(['{TITLE}', '{BODY}', '{DESCRIPTION}', '{VERSION}'], [ucfirst($title), ucfirst($body), ucfirst($description), SPINDASH_VERSION]);
+		return (string) $page;
+	}
+
+	public function documentNotFound($request, & $response) {
+		$error_page = $this->simplePage('404 Not Found', 'Requested page was not found', 'This means that you’ve requested something that does not exist within this site. If you beleive this should not happen, contact the website owner.');
+		$response->setStatusCode(404);
+		$response->setBody($error_page);
 	}
 
 	public function run() {

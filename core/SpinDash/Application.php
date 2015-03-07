@@ -11,9 +11,14 @@
 
 namespace SpinDash;
 
+define('SPINDASH_ROOT', __DIR__ . '/');
+define('SPINDASH_VERSION', '2.0.0-git');
+
 abstract class Application extends Router implements Interfaces\IApplication
 {
 	public function __construct($configuration_file) {
+		@ set_exception_handler([$this, 'handleException']);
+
 		if(!file_exists($configuration_file)) {
 			throw new Exceptions\IOException('File does not exist', $configuration_file);
 		}
@@ -27,5 +32,9 @@ abstract class Application extends Router implements Interfaces\IApplication
 		if(!isset($config)) {
 			throw new Exceptions\CoreException('The given configuration file does not define $config array');
 		}
+	}
+
+	public function handleException(\Exception $e) {
+		die($this->simplePage('General error', $e->getMessage(), 'This could happen because of an error in the web application’s code, settings or database. If you are the owner of this website, contact your web programming staff.'));
 	}
 }
