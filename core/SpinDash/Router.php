@@ -182,8 +182,14 @@ abstract class Router
 		return (string) $page;
 	}
 
-	public function documentNotFound($request, & $response) {
-		$error_page = $this->simplePage('404 Not Found', 'Requested page was not found', 'This means that you’ve requested something that does not exist within this site. If you beleive this should not happen, contact the website owner.');
+	public function documentNotFound(Http\Request $request, Http\Response $response) {
+		if(count($this->routes['get'] == 0)) {
+			$message = 'You don’t have any routes defined. You have to define the root route in your Site::routeMap';
+		} else {
+			$message = 'This means that you’ve requested something that does not exist within this site. If you beleive this should not happen, contact the website owner.';
+		}
+
+		$error_page = $this->simplePage('404 Not Found', 'Requested page was not found', $message);
 		$response->setStatusCode(404);
 		$response->setBody($error_page);
 	}
