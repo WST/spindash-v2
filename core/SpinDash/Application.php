@@ -19,6 +19,17 @@ abstract class Application extends Router implements Interfaces\IApplication
 	public function __construct($configuration_file) {
 		@ set_exception_handler([$this, 'handleException']);
 
+		switch(PHP_SAPI) {
+			case 'uwsgi-phpsgi':
+				$frontend = Router::FRONTEND_PHPSGI;
+			break;
+			default:
+				$frontend = Router::FRONTEND_BASIC;
+			break;
+		}
+
+		parent::__construct($frontend);
+
 		if(!file_exists($configuration_file)) {
 			throw new Exceptions\IOException('File does not exist', $configuration_file);
 		}
@@ -32,20 +43,17 @@ abstract class Application extends Router implements Interfaces\IApplication
 		if(!isset($config)) {
 			throw new Exceptions\CoreException('The given configuration file does not define $config array');
 		}
-
-		switch(PHP_SAPI) {
-			case 'uwsgi-phpsgi':
-				$frontend = Router::FRONTEND_PHPSGI;
-			break;
-			default:
-				$frontend = Router::FRONTEND_BASIC;
-			break;
-		}
-
-		parent::__construct($frontend);
 	}
 
 	public function handleException(\Exception $e) {
-		die($this->simplePage('General error', $e->getMessage(), 'This could happen because of an error in the web application’s code, settings or database. If you are the owner of this website, contact your web programming staff.'));
+		switch($this->frontend()) {
+			case Router::FRONTEND_PHPSGI:
+				// TODO if we are thread-safe, somehow reply to the client
+				die("FATAL\n");
+			break;
+			default:
+				die($this->simplePage('General error', $e->getMessage(), 'This could happen because of an error in the web application’s code, settings or database. If you are the owner of this website, contact your web programming staff.'));
+			break;
+		}
 	}
 }

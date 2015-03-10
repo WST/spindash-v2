@@ -6,23 +6,29 @@
 <title>{TITLE}</title>
 <style type="text/css">
 <!--
+@import url('http://fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic-ext');
 * {font-family: "Verdana", "DejaVu Sans", sans-serif;}
-body {background-color: #fff; padding: 32px 32px 32px 64px; margin: 0px;}
-h1 {color: #333; font-weight: normal; border-bottom: 1px solid #333; margin: 0px; padding: 0px; width: 600px;}
+body {background-color: skyblue; padding: 64px 32px 32px 32px; margin: 0px; }
+#container { background-color: #fff; width: 700px; padding: 24px; box-shadow:2px 2px 0px #6ea8c0; text-align: center; }
+h1 {color: #196584; font-weight: normal; margin: 0px; font-size: 20pt; padding: 0px; font-family: 'Roboto', sans-serif; }
+#description a { color: #196584; text-decoration: underline; }
+#description a:hover { color: #000; text-decoration: underline; }
 #software {color: #999; font-size: 8pt; padding-top: 32px;}
 #software a {color: #999;}
-#software a:hover {color: #a00;}
-#body {font-size: 10pt; color: #333; line-height: 14pt; padding-top: 16px; width: 600px;}
-#body a {color: #333;}
-#body a:hover {color: #000;}
-#description {font-size: 8pt; color: #333; line-height: 12pt; padding-top: 8px; width: 600px;}
+#software a:hover {color: #196584;}
+#body {font-size: 10pt; color: #A66C6C; line-height: 14pt; padding-top: 10px; }
+#description {font-size: 8pt; color: #333; line-height: 15pt; padding-top: 24px; text-align: left; }
 -->
 </style>
 </head>
 <body>
-	<h1>{TITLE}</h1>
-	<div id="body">{BODY}</div>
-	<div id="description">{DESCRIPTION}</div>
-	<div id="software">This website uses <a href="http://github.com/WST/spindash-v2/" title="Web application framework">Spin&nbsp;Dash&nbsp;{VERSION}</a> by <a href="http://averkov.net">Ilya I. Averkov</a></div>
+	<center>
+		<div id="container">
+			<h1>{TITLE}</h1>
+			<div id="body">{BODY}</div>
+			<div id="description">{DESCRIPTION}</div>
+			<div id="software">This website uses <a href="http://github.com/WST/spindash-v2/" title="Web application framework">Spin&nbsp;Dash&nbsp;{VERSION}</a> by <a href="http://averkov.net">Ilya I. Averkov</a></div>
+		</div>
+	</center>
 </body>
 </html>

@@ -184,12 +184,12 @@ abstract class Router
 
 	public function documentNotFound(Http\Request $request, Http\Response $response) {
 		if(count($this->routes['get'] == 0)) {
-			$message = 'You don’t have any routes defined. You have to define the root route in your Site::routeMap';
+			$message = 'It seems that your application’s route map is empty. You have to define at least the root route. If this is the first time you use SpinDash, check out the <a href="https://spindash.herokuapp.com">documentation</a>.';
 		} else {
 			$message = 'This means that you’ve requested something that does not exist within this site. If you beleive this should not happen, contact the website owner.';
 		}
 
-		$error_page = $this->simplePage('404 Not Found', 'Requested page was not found', $message);
+		$error_page = $this->simplePage('404 — document not found', 'The requested resource was not found on the server', $message);
 		$response->setStatusCode(404);
 		$response->setBody($error_page);
 	}
