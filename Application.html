@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Настройка &mdash; Документация SpinDash 2.0.0</title>
+    <title>Создание приложения &mdash; Документация SpinDash 2.0.0</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,6 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="Документация SpinDash 2.0.0" href="index.html" />
+    <link rel="next" title="Настройка" href="Configuration.html" />
     <link rel="prev" title="Установка SpinDash" href="Install.html" /> 
   </head>
   <body>
@@ -34,6 +35,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="Алфавитный указатель"
              accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="Configuration.html" title="Настройка"
+             accesskey="N">вперёд</a> |</li>
         <li class="right" >
           <a href="Install.html" title="Установка SpinDash"
              accesskey="P">назад</a> |</li>
@@ -47,7 +51,12 @@
           <div class="body">
             
   <div class="section" id="id1">
-<h1>Настройка<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<h1>Создание приложения<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Веб-приложение SpinDash — это некоторый класс, унаследованный от класса <tt class="docutils literal"><span class="pre">Spindash\Application</span></tt> и реализующий метод <tt class="docutils literal"><span class="pre">routeMap</span></tt>, принимающий на вход единственный параметр — объект класса <tt class="docutils literal"><span class="pre">SpinDash\Http\Request</span></tt>, соответствующий текущему обрабатываемому HTTP-запросу. Метод возвращает ассоциативный массив <tt class="docutils literal"><span class="pre">$arr</span></tt>, который может содержать элементы <tt class="docutils literal"><span class="pre">$arr['get']</span></tt>, <tt class="docutils literal"><span class="pre">$arr['post']</span></tt> и <tt class="docutils literal"><span class="pre">$arr['gp']</span></tt>, каждый из которых, в свою очередь, также является массивом, состоящим из элементов вида <tt class="docutils literal"><span class="pre">['route',</span> <span class="pre">callable]</span></tt>, где <tt class="docutils literal"><span class="pre">'route'</span></tt> — маска маршрута (например: <tt class="docutils literal"><span class="pre">'/'</span></tt> или <tt class="docutils literal"><span class="pre">'/users/:id'</span></tt>), а <tt class="docutils literal"><span class="pre">callable</span></tt> — callback-функция, которая будет вызвана при обращении к URL, соответствующему данной маске маршрута. Это может быть, к примеру, анонимная функция или метод класса.</p>
+<div class="section" id="spindash-admin">
+<h2>Использование spindash-admin<a class="headerlink" href="#spindash-admin" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Утилита <tt class="docutils literal"><span class="pre">spindash-admin</span></tt> представляет собой приложение командной строки, предназначенное для быстрого создания заготовок проектов SpinDash, выполнения над ними определённых рутинных операций.</p>
+</div>
 </div>
 
 
@@ -56,12 +65,23 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Создание приложения</a><ul>
+<li><a class="reference internal" href="#spindash-admin">Использование spindash-admin</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Предыдущий раздел</h4>
   <p class="topless"><a href="Install.html"
                         title="предыдущая глава">Установка SpinDash</a></p>
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="Configuration.html"
+                        title="следующая глава">Настройка</a></p>
   <h3>Эта страница</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/Configuration.txt"
+    <li><a href="_sources/Application.txt"
            rel="nofollow">Исходный текст</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -87,6 +107,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="Алфавитный указатель"
              >указатель</a></li>
+        <li class="right" >
+          <a href="Configuration.html" title="Настройка"
+             >вперёд</a> |</li>
         <li class="right" >
           <a href="Install.html" title="Установка SpinDash"
              >назад</a> |</li>

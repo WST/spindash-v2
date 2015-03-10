@@ -5,20 +5,12 @@ SpinDash является очень простым, разработанным 
 
 В недалёком прошлом проект SpinDash назывался “ATS”, что, в общем-то, означало “AdygTelecom System”. Но так как более тупое название придумать было уже сложно, пришлось придумать более оригинальное.
 
-Contents:
+Оглавление:
 
 .. toctree::
    :maxdepth: 1
 
    Install
+   Application
    Configuration
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
