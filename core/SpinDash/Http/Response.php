@@ -20,12 +20,22 @@ final class Response
 		$this->body = $data;
 	}
 
+	public function statusCodeDescription() {
+		switch($this->status_code) {
+			case 404: return 'Not Found'; break;
+			default: return 'OK'; break;
+		}
+	}
+
 	public function sendBasic() {
+		if($this->status_code !== 200) {
+			header("HTTP/1.1  {$this->status_code} " . $this->statusCodeDescription());
+		}
 		echo $this->body;
 	}
 
 	public function sendPHPSGI() {
-		return ["{$this->status_code} message", ['Content-Type' => 'text/html'], $this->body];
+		return ["{$this->status_code} " . $this->statusCodeDescription(), ['Content-Type' => 'text/html'], $this->body];
 	}
 
 	public function setStatusCode($code) {
