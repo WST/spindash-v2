@@ -100,7 +100,7 @@ abstract class Router
 		try {
 			$handler = $this->selectHandler($request);
 		} catch(Exceptions\CoreException $e) {
-			$this->documentNotFound($request, $response);
+			$this->documentNotFound($request, $response, $e->getMessage());
 			return $response;
 		}
 		
@@ -185,11 +185,13 @@ abstract class Router
 		return (string) $page;
 	}
 
-	public function documentNotFound(Http\Request $request, Http\Response $response) {
-		if(count($this->routes['get'] == 0)) {
-			$message = 'It seems that your application’s route map is empty. You have to define at least the root route. If this is the first time you use SpinDash, check out the <a href="https://spindash.herokuapp.com">documentation</a>.';
-		} else {
-			$message = 'This means that you’ve requested something that does not exist within this site. If you beleive this should not happen, contact the website owner.';
+	public function documentNotFound(Http\Request $request, Http\Response $response, $message = NULL) {
+		if(is_null($message)) {
+			if(count($this->routes['get']) == 0) {
+				$message = 'It seems that your application’s route map is empty. You have to define at least the root route. If this is the first time you use SpinDash, check out the <a href="https://spindash.herokuapp.com">documentation</a>.';
+			} else {
+				$message = 'This means that you’ve requested something that does not exist within this site. If you beleive this should not happen, contact the website owner.';
+			}
 		}
 
 		$error_page = $this->simplePage('404 — document not found', 'The requested resource was not found on the server', $message);
