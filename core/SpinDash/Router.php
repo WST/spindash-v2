@@ -32,6 +32,7 @@ abstract class Router
 		$this->frontend = $frontend;
 		$this->routes['get'] = [];
 		$this->routes['post'] = [];
+		$this->setupRoutes();
 	}
 
 	public function frontend() {
@@ -76,6 +77,8 @@ abstract class Router
 		if(!is_null($this->cache) && $this->cache->handleRequest($request, $response)) {
 			return $response;
 		}
+
+		$this->setupDynamicRoutes($request);
 		
 		foreach($this->middleware as $callback) {
 			if(!is_callable($callback)) continue;

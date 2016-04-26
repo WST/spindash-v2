@@ -13,5 +13,6 @@ namespace SpinDash\Interfaces;
 
 interface IApplication
 {
-	public function routeMap($request);
+	public function setupDynamicRoutes($request);
+	public function setupRoutes();
 }
