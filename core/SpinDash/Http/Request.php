@@ -27,6 +27,7 @@ final class Request
 				$this->files = & $_FILES;
 
 				$this->method = $_SERVER['REQUEST_METHOD'];
+				$this->request_uri = $_SERVER['REQUEST_URI'];
 			break;
 
 			case \Spindash\Router::FRONTEND_PHPSGI:
